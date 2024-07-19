@@ -78,8 +78,7 @@ Flyway se utiliza para gestionar las migraciones de la base de datos. Las migrac
 
 Cada archivo de migración debe seguir la convención de nomenclatura de Flyway, por ejemplo: V1__crear_tabla_medicos.sql.
 
-## Licencia
-Este proyecto está licenciado bajo la Licencia MIT.
+
 
 
 
