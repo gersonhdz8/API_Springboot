@@ -21,16 +21,15 @@ public class SecurityConfigurations {
     @Autowired
     private SecurityFilter securityFilter;
 
+    @SuppressWarnings("deprecation")
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        return httpSecurity.csrf().disable().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Le indicamos a Spring el tipo de sesion
-                .and().authorizeRequests()
+        return httpSecurity.csrf(csrf -> csrf.disable()).sessionManagement(management -> management
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)).authorizeRequests(requests -> requests
                 .requestMatchers(HttpMethod.POST, "/login").permitAll()
-                .requestMatchers("/swagger-ui.html", "/v3/api-docs/**","/swagger-ui/**").permitAll()
+                .requestMatchers("/swagger-ui.html", "/v3/api-docs/**", "/swagger-ui/**").permitAll()
                 .anyRequest()
-                .authenticated()
-                .and()
+                .authenticated())
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
